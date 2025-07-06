@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RestGest: La Solución Integral para Restaurantes</title>
+    <!-- Fuente de Google Fonts para un diseño más moderno -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa; /* Un fondo más claro */
+            scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en enlaces */
+        }
+
+        .container {
+            width: 85%; /* Un poco más ancho */
+            max-width: 1200px; /* Límite para pantallas grandes */
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0; /* Más espacio entre secciones */
+        }
+
+        .bg-light {
+            background-color: #e9ecef; /* Un gris claro para secciones alternas */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50; /* Un color oscuro elegante */
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 3em; /* Más grande */
+            margin-bottom: 30px;
+            color: #007bff; /* Color principal para títulos importantes */
+        }
+
+        h3 {
+            font-size: 2.5em; /* Más grande */
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h3::after { /* Subrayado decorativo para h3 */
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #ff6b6b; /* Un color vibrante */
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none; /* Quitamos los puntos por defecto */
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.05em;
+        }
+
+        ul li::before { /* Icono de checkmark personalizado */
+            content: '✔';
+            color: #28a745; /* Verde para checkmark */
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff6b6b; /* Color vibrante para botones */
+            color: #fff;
+            padding: 14px 30px; /* Más grande */
+            border-radius: 50px; /* Botones redondeados */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background: #e63946; /* Tono más oscuro al pasar el ratón */
+            transform: translateY(-3px); /* Efecto de elevación */
+            text-decoration: none;
+        }
+
+        /* Header - Fijo y Llamativo */
+        header {
+            background: #2c3e50; /* Fondo oscuro para contraste */
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: fixed; /* Fijo en la parte superior */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+            transition: background 0.3s ease;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo img {
+            height: 60px; /* Tamaño del logo */
+            transition: transform 0.3s ease;
+        }
+
+        header .logo img:hover {
+            transform: scale(1.05); /* Pequeño efecto al pasar el ratón */
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: 30px; /* Más espacio entre elementos */
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        header nav a::after { /* Subrayado animado */
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ff6b6b;
+            transition: width 0.3s ease;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        header nav a:hover {
+            color: #ff6b6b; /* Color vibrante al pasar el ratón */
+        }
+
+        /* Hero Section - Más Impactante */
+        .hero {
+            background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.8)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover; /* Imagen de restaurante de Unsplash */
+            color: #fff;
+            text-align: center;
+            padding: 180px 0 100px; /* Más padding superior para compensar el header fijo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 550px; /* Altura mínima */
+            position: relative;
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h2 {
+            font-size: 4em; /* Título más grande */
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.4em; /* Texto más grande */
+            margin-bottom: 40px;
+            color: #f0f0f0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Project Details Section - Mejor Distribución */
+        .project-details {
+            display: grid; /* Usamos Grid para mejor control */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
+            gap: 40px; /* Más espacio entre elementos */
+            margin-top: 40px;
+        }
+
+        .detail-item {
+            background: #fff;
+            padding: 35px;
+            border-radius: 12px; /* Bordes más suaves */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-item h4 {
+            color: #007bff; /* Color principal */
+            margin-top: 0;
+            font-size: 1.8em;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .detail-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-item ul li::before {
+            content: '✓'; /* Checkmark simple */
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Contact Section - Centrado y Claro */
+        .contact-info {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center; /* Centrar texto en esta sección */
+        }
+
+        .contact-info a {
+            font-weight: bold;
+            color: #ff6b6b; /* Color vibrante para enlaces de contacto */
+            font-size: 1.1em;
+        }
+
+        .contact-info a:hover {
+            color: #e63946;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.95em;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 3em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+            h3 {
+                font-size: 2em;
+            }
+            .detail-item {
+                max-width: 100%; /* En pantallas medianas, ocupan todo el ancho */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            header .logo img {
+                height: 50px;
+                margin-bottom: 10px;
+            }
+            header nav ul {
+                margin-top: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            header nav ul li {
+                margin: 8px 0;
+            }
+            .hero {
+                padding: 150px 0 80px;
+                min-height: 450px;
+            }
+            .hero h2 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+            h3 {
+                font-size: 1.8em;
+            }
+            .section-padding {
+                padding: 60px 0;
+            }
+            .project-details {
+                grid-template-columns: 1fr; /* Una sola columna en móviles */
+            }
+            .detail-item {
+                padding: 25px;
+            }
+            .contact-info {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <!-- Logotipo de ejemplo. Puedes reemplazarlo con tu propio logo. -->
+                <!-- Asegúrate de que la imagen 'logo-restgest.png' esté en la misma carpeta o ajusta la ruta. -->
+                <img src="C:\Users\Luis_\OneDrive\Escritorio" alt="RestGest Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#nuestro-proyecto">Nuestro Proyecto</a></li>
+                    <li><a href="#entorno">Entorno</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h2>RestGest: La Revolución Digital en la Gestión de Restaurantes</h2>
+            <p>Optimizamos cada proceso para que tu negocio crezca y tus clientes disfruten de una experiencia inigualable.</p>
+            <a href="#nuestro-proyecto" class="btn">Descubre Más</a>
+        </div>
+    </section>
+
+    <section id="quienes-somos" class="section-padding">
+        <div class="container">
+            <h3>Nuestro Equipo: Innovación y Compromiso</h3>
+            <p>Somos un equipo de estudiantes de <strong>Desarrollo de Software Multiplataforma (DSM 32)</strong> de la carrera de <strong>Desarrollo de Software Multiplataforma</strong>, apasionados por la tecnología y comprometidos con la creación de soluciones que generen un impacto real. Bajo la guía de la <strong>Docente Castañeda Losoya Patricia Isabel</strong>, hemos desarrollado RestGest, un sistema diseñado para transformar la gestión operativa de restaurantes.</p>
+            <p>Nuestra visión es impulsar la eficiencia y la satisfacción del cliente en el sector restaurantero a través de herramientas digitales robustas y fáciles de usar.</p>
+            <h4>Integrantes del Equipo:</h4>
+            <ul>
+                <li><strong>Luis Alonso Carranzas Rojas</strong> (Director del Proyecto)</li>
+                <li>Casimiro García Ricardo Antonio</li>
+                <li>Ahjuech Ramos David</li>
+                <li>García Rivas Miguel Eduardo</li>
+                <li>García Garibay Luis Alexis</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="nuestro-proyecto" class="section-padding bg-light">
+        <div class="container">
+            <h3>RestGest: La Solución Integral para tu Restaurante</h3>
+            <div class="project-details">
+                <div class="detail-item">
+                    <h4>Problemática que Resuelve:</h4>
+                    <p>El sector restaurantero actual enfrenta desafíos significativos debido a la dependencia de procesos manuales. Esto se traduce en errores frecuentes en los pedidos, demoras en el servicio, dificultades en el cierre de caja y una limitada capacidad para analizar el rendimiento del negocio. Estas ineficiencias no solo generan estrés en el personal, sino que también afectan la satisfacción del cliente y la rentabilidad.</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Propósito del Proyecto:</h4>
+                    <p>RestGest nace con el propósito de automatizar y optimizar la toma de pedidos, el procesamiento de pagos, la generación de reportes de ventas y el análisis del comportamiento del cliente. Buscamos no solo facilitar el trabajo del personal operativo, sino también proporcionar a la gerencia herramientas de análisis cruciales para la toma de decisiones estratégicas. Nuestro objetivo es reducir los tiempos de espera, minimizar errores y elevar la calidad del servicio al cliente.</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Resultados Esperados:</h4>
+                    <ul>
+                        <li><strong>Integración Completa:</strong> Conexión fluida entre pedidos, cocina y caja.</li>
+                        <li><strong>Reducción de Quejas:</strong> Disminución significativa de inconformidades por errores o retrasos.</li>
+                        <li><strong>Digitalización Total:</strong> Procesos contables y de ventas completamente digitalizados.</li>
+                        <li><strong>Interfaz Amigable:</strong> Facilidad de uso que agiliza la capacitación de nuevo personal.</li>
+                        <li><strong>Reportes Inteligentes:</strong> Implementación de reportes automáticos y análisis predictivo de ventas para una gestión basada en datos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="entorno" class="section-padding">
+        <div class="container">
+            <h3>Un Sistema Diseñado para la Realidad de tu Negocio</h3>
+            <p>RestGest está orientado a restaurantes de tamaño mediano ubicados en zonas urbanas con alta afluencia de público (entre 50 y 200 personas por día). Entendemos que estos establecimientos, a pesar de su popularidad, a menudo operan con sistemas manuales que limitan su crecimiento y eficiencia.</p>
+            <h4>Características del Entorno Objetivo:</h4>
+            <ul>
+                <li><strong>Volumen de Clientes:</strong> Capacidad para manejar un flujo significativo de clientes, garantizando un servicio eficiente.</li>
+                <li><strong>Equipo Humano:</strong> Diseñado para apoyar a equipos de aproximadamente 15 empleados (meseros, cocineros, cajeros, supervisores), reduciendo su estrés laboral.</li>
+                <li><strong>Necesidad de Automatización:</strong> Ideal para restaurantes que actualmente dependen del papel para registrar pedidos, lo que genera errores humanos y demoras.</li>
+                <li><strong>Toma de Decisiones:</strong> Proporciona métricas confiables para la gerencia, permitiendo decisiones estratégicas basadas en datos.</li>
+            </ul>
+            <p>Nuestro sistema busca ser la herramienta digital que apoye las tareas repetitivas, reduzca las fallas humanas y eleve la experiencia tanto para el personal como para los clientes.</p>
+        </div>
+    </section>
+
+    <section id="contacto" class="section-padding bg-light">
+        <div class="container">
+            <h3>Contáctanos</h3>
+            <p>¿Interesado en transformar tu restaurante con RestGest? ¡Estamos listos para ayudarte!</p>
+            <p>Para consultas directas o demostraciones, puedes contactar a:</p>
+            <div class="contact-info">
+                <p><strong>Director del Proyecto:</strong> Luis Alonso Carranzas Rojas</p>
+                <p><strong>Teléfono:</strong> <a href="tel:+526563956681">6563956681</a></p>
+                <p><strong>Correo Electrónico:</strong> <a href="mailto:al24311258@utcj.edu.mx">al24311258@utcj.edu.mx</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 RestGest. Todos los derechos reservados.</p>
+            <p>Desarrollado por el equipo de DSM 32.</p>
+        </div>
+    </footer>
+</body>
+</html>
